@@ -28,7 +28,7 @@ describe("Stranger Things App", () => {
   test("App renders the correct texts", async () => {
     // 👉 TASK: click on the button that displays "Press to Get Show Data"
     const button = screen.getByText("Press to Get Show Data");
-    user.click(button);
+    await user.click(button);
     // 👉 TASK: create a waitFor and await for the following to be true:
     await waitFor(() => {
       //    - The text "Press to Get Show Data" is no longer in the DOM
@@ -47,13 +47,22 @@ describe("Stranger Things App", () => {
       expect(screen.queryByText("Select A Season")).toBeInTheDocument();
     });
     // 👉 TASK: select Season 2 from the dropdown
+    await user.selectOptions(screen.getByRole("combobox"), "1");
     // ❗ Don't forget user actions need the await keyword
     // ❗ Use the selectOptions user action
     // ❗ Grab the select element using querySelector
     // 👉 TASK: create the following assertions:
     //    - The text "Season 2, Episode 1" exists in the DOM
+    expect(screen.queryByText("Season 2, Episode 1")).toBeInTheDocument();
     //    - The text "Chapter One: MADMAX" exists in the DOM
+    expect(screen.queryByText("Chapter One: MADMAX")).toBeInTheDocument();
     //    - The text "One year after the events with the Upside Down and the Demogorgon" exists in the DOM
     // ❗ You will need { exact: false } to select the longer text
+    expect(
+      screen.queryByText(
+        "One year after the events with the Upside Down and the Demogorgon",
+        { exact: false }
+      )
+    ).toBeInTheDocument();
   });
 });
